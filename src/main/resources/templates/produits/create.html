@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Gestion D'inventaire</title>
+</head>
+<body>
+<div class="container my-4">
+  <div class="row">
+    <div class="col-md-8 mx-auto rounded border p-4">
+      <h2 class="text-center mb-5">Nouveau Produit</h2>
+
+
+
+      <form method="post" th:object="${produitDto}">
+        <!-- Champ Catégorie -->
+        <div class="row mb-3">
+          <label for="catégorie" class="col-sm-4 col-form-label">Catégorie</label>
+          <div class="col-sm-8">
+            <input id="catégorie" class="form-control" th:field="${produitDto.catégorie}" placeholder="Entrez la catégorie" required>
+            <p th:if="${#fields.hasErrors('catégorie')}" class="text-danger" th:errors="${produitDto.catégorie}"></p>
+          </div>
+        </div>
+
+        <!-- Champ Nom -->
+        <div class="row mb-3">
+          <label for="nom" class="col-sm-4 col-form-label">Nom</label>
+          <div class="col-sm-8">
+            <input id="nom" class="form-control" th:field="${produitDto.nom}" placeholder="Entrez le nom du produit" required>
+            <p th:if="${#fields.hasErrors('nom')}" class="text-danger" th:errors="${produitDto.nom}"></p>
+          </div>
+        </div>
+
+        <!-- Champ Prix -->
+        <div class="row mb-3">
+          <label for="prix" class="col-sm-4 col-form-label">Prix</label>
+          <div class="col-sm-8">
+            <input id="prix" class="form-control" th:field="${produitDto.prix}" type="number" min="0" step="0.01" placeholder="Entrez le prix" required>
+            <p th:if="${#fields.hasErrors('prix')}" class="text-danger" th:errors="${produitDto.prix}"></p>
+          </div>
+        </div>
+
+        <!-- Champ Quantité -->
+        <div class="row mb-3">
+          <label for="quantité" class="col-sm-4 col-form-label">Quantité</label>
+          <div class="col-sm-8">
+            <input id="quantité" class="form-control" th:field="${produitDto.quantité}" type="number" min="0" placeholder="Entrez la quantité" required>
+            <p th:if="${#fields.hasErrors('quantité')}" class="text-danger" th:errors="${produitDto.quantité}"></p>
+          </div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="row">
+          <div class="offset-sm-4 col-sm-4 d-grid">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          <div class="col-sm-4 d-grid">
+            <a class="btn btn-outline-primary" href="/produits">Cancel</a>
+          </div>
+        </div>
+        <!-- Affichage des erreurs globales -->
+        <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+          <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

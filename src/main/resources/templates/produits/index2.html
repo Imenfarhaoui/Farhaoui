@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Gestion D'inventaire</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Gestion d'Inventaire</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse"  >
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary me-2" href="/client/logout">Déconnexion</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container my-4">
+    <h1 class="text-center mb-4">Liste des Produits</h1>
+
+    <!-- Bouton pour ajouter un nouveau produit -->
+    <div class="d-flex justify-content-end mb-3">
+        <a class="btn btn-success" th:href="@{/produits/create}">Ajouter un produit</a>
+
+    </div>
+
+    <!-- Table des produits -->
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Catégorie</th>
+            <th>Nom</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <!-- Cas où la liste est vide -->
+        <tr th:if="${#lists.isEmpty(produits)}">
+            <td colspan="6" class="text-center">Aucun produit trouvé.</td>
+        </tr>
+
+        <!-- Liste des produits -->
+        <tr th:each="produit : ${produits}">
+            <td th:text="${produit.id}"></td>
+            <td th:text="${produit.catégorie}"></td>
+            <td th:text="${produit.nom}"></td>
+            <td th:text="${produit.prix}"></td>
+            <td th:text="${produit.quantité}"></td>
+            <td style="white-space: nowrap">
+                <a class="btn btn-warning btn-sm"
+                   th:href="@{/produits/edit(id=${produit.id})}">
+                    Modifier
+                </a>
+
+                <a class="btn btn-danger btn-sm"
+                   th:href="@{/produits/delete(id=${produit.id})}"
+                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+                    Supprimer
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
